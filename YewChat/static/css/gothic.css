@@ -1,0 +1,53 @@
+body {
+  background-color: #121212;
+  background-image: url('/static/img/grunge-bg.jpg'); /* optional */
+  background-size: cover;
+  font-family: 'Cinzel', serif;
+  color: #e0e0e0;
+}
+
+h1, .text-xl {
+  font-family: 'UnifrakturMaguntia', cursive;
+  color: #8b0000;
+  text-shadow: 1px 1px 10px #500000;
+}
+
+input, button {
+  background-color: #1f1f1f;
+  color: #f0f0f0;
+  border: 1px solid #444;
+  font-family: 'Cinzel', serif;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+button:hover {
+  background-color: #8b0000;
+  box-shadow: 0 0 8px #8b0000;
+}
+
+.avatar-frame {
+  border: 2px solid #8b0000;
+  border-radius: 100%;
+  padding: 2px;
+  background-color: #000;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.typewriter-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #8b0000;
+  animation: typewriter 2s steps(30, end) 1;
+}

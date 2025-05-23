@@ -139,66 +139,58 @@ impl Component for Chat {
         let submit = ctx.link().callback(|_| Msg::SubmitMessage);
 
         html! {
-            <div class="flex w-screen">
-                <div class="flex-none w-56 h-screen bg-gray-100">
-                    <div class="text-xl p-3">{"Users"}</div>
+            <div class="flex w-screen gothic">
+                <div class="flex-none w-56 h-screen bg-black border-r border-red-900">
+                    <div class="text-xl p-3 border-b border-red-900">{"☠ Users"}</div>
                     {
-                        self.users.clone().iter().map(|u| {
+                        self.users.iter().map(|u| {
                             html!{
-                                <div class="flex m-3 bg-white rounded-lg p-2">
-                                    <div>
-                                        <img class="w-12 h-12 rounded-full" src={u.avatar.clone()} alt="avatar"/>
-                                    </div>
-                                    <div class="flex-grow p-3">
-                                        <div class="flex text-xs justify-between">
-                                            <div>{u.name.clone()}</div>
-                                        </div>
-                                        <div class="text-xs text-gray-400">
-                                            {"Hi there!"}
-                                        </div>
+                                <div class="flex m-3 bg-[#1f1f1f] rounded-lg p-2 border border-red-900 shadow-inner">
+                                    <img class="w-12 h-12 rounded-full avatar-frame" src={u.avatar.clone()} alt="avatar"/>
+                                    <div class="flex-grow p-3 text-sm">
+                                        <div>{&u.name}</div>
+                                        <div class="text-xs text-gray-400">{"Summoned..."}</div>
                                     </div>
                                 </div>
                             }
                         }).collect::<Html>()
                     }
                 </div>
-                <div class="grow h-screen flex flex-col">
-                    <div class="w-full h-14 border-b-2 border-gray-300"><div class="text-xl p-3">{"💬 Chat!"}</div></div>
-                    <div class="w-full grow overflow-auto border-b-2 border-gray-300">
+                <div class="grow h-screen flex flex-col bg-[#121212]">
+                    <div class="w-full h-14 border-b-2 border-red-900">
+                        <div class="text-xl p-3">{"💬 SpellCast Chat"}</div>
+                    </div>
+                    <div class="grow overflow-auto p-4 space-y-3">
                         {
                             self.messages.iter().map(|m| {
                                 let user = self.users.iter().find(|u| u.name == m.from).unwrap();
                                 html!{
-                                    <div class="flex items-end w-3/6 bg-gray-100 m-8 rounded-tl-lg rounded-tr-lg rounded-br-lg ">
-                                        <img class="w-8 h-8 rounded-full m-3" src={user.avatar.clone()} alt="avatar"/>
-                                        <div class="p-3">
-                                            <div class="text-sm">
-                                                {m.from.clone()}
-                                            </div>
-                                            <div class="text-xs text-gray-500">
+                                    <div class="flex bg-[#1e1e1e] p-3 rounded-lg border border-red-800 shadow-sm w-fit max-w-[70%]">
+                                        <img class="w-8 h-8 rounded-full avatar-frame mr-3" src={user.avatar.clone()} />
+                                        <div>
+                                            <div class="text-sm font-semibold text-red-500">{m.from.clone()}</div>
+                                            {
                                                 if m.message.ends_with(".gif") {
-                                                    <img class="mt-3" src={m.message.clone()}/>
+                                                    html! { <img class="mt-2 rounded" src={m.message.clone()} /> }
                                                 } else {
-                                                    {m.message.clone()}
+                                                    html! { <div class="text-sm text-gray-300">{m.message.clone()}</div> }
                                                 }
-                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 }
                             }).collect::<Html>()
                         }
-
                     </div>
-                    <div class="w-full h-14 flex px-3 items-center">
-                        <input ref={self.chat_input.clone()} type="text" placeholder="Message" class="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700" name="message" required=true />
-                        <button onclick={submit} class="p-3 shadow-sm bg-blue-600 w-10 h-10 rounded-full flex justify-center items-center color-white">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="fill-white">
-                                <path d="M0 0h24v24H0z" fill="none"></path><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                            </svg>
+                    <div class="flex items-center px-3 py-4 border-t border-red-800 bg-black">
+                        <input ref={self.chat_input.clone()} type="text" placeholder="Speak your mind..." class="w-full py-2 px-4 bg-[#1a1a1a] rounded-full text-white outline-none" />
+                        <button onclick={submit} class="ml-3 bg-red-800 hover:bg-red-700 text-white p-3 rounded-full">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                         </button>
                     </div>
                 </div>
             </div>
         }
+
     }
 }
